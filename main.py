@@ -4,6 +4,8 @@ projekt_2.py: druhý projekt do Engeto Online Python Akademie
 author: Richard Papež
 email: richard.papez.ml@gmail.com¨
 """
+# Proměnné
+oddelovac = "=" * 44
 
 # Knihovny
 from copy import deepcopy
@@ -17,18 +19,17 @@ def zobraz_uvod():
 
     Bez vstupu či výstupu.
     """
-    uvod_text = """Welcome to Tic Tac Toe
+    uvod_text = """Vítej v piškvorkách
 ============================================
-GAME RULES:
-Each player can place one mark (or stone)
-per turn on the 3x3 grid. The WINNER is
-who succeeds in placing three of their
-marks in a:
-* horizontal,
-* vertical or
-* diagonal row
+Pravidla hry:
+Hráč umístí jeden křížek či kolečko
+při svém kole na mřížce 3 x 3. Zvítězí ten,
+který zvládne umístit 3 hrací kameny:
+* horizontálně,
+* vertikálně
+* diagonálně
 ============================================
-Let's start the game
+Hra začíná
 --------------------------------------------"""
 
     print(uvod_text)
@@ -45,13 +46,12 @@ def ziskej_volbu(stav):
     :type stav: dict
     Bez návratové funkce.
     """
-    oddelovac = "=" * 44
     pripustne_volby = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     print(oddelovac)
-    zadane_policko = input(f"Player {stav['na tahu']} | Please enter your move number: ")
+    zadane_policko = input(f"Hráč {stav['na tahu']} | Vlož číslo pole: ")
     while zadane_policko not in pripustne_volby or zadane_policko in stav["pole x"] or zadane_policko in stav["pole o"]:
         print(oddelovac)
-        zadane_policko = input(Fore.RED + "Wrong input or occupied box." + Style.RESET_ALL + "\nPlease enter your move number: ")
+        zadane_policko = input(Fore.RED + "Špatný vstup nebo zabrané pole." + Style.RESET_ALL + "\nVlož číslo pole: ")
     stav[f"pole {stav['na tahu']}"].append(zadane_policko)
     stav[f"pole {zadane_policko}"] = stav["na tahu"]
     stav["kolo"] += 1
@@ -78,7 +78,6 @@ def vykresli_herni_plochu(stav):
     :type stav: dict
     Bez návratové funkce.
     """
-    oddelovac = "=" * 44
     if stav["kolo"] != 1:
         print(oddelovac)
     print(
@@ -113,9 +112,8 @@ def vyhodnot_vyhru(stav):
     vitezne_kombinace = (all(vyhra_1), all(vyhra_2), all(vyhra_3), all(vyhra_4),
                          all(vyhra_5), all(vyhra_6), all(vyhra_7), all(vyhra_8),)
 
-    oddelovac = "=" * 44
     if any(vitezne_kombinace):
-        print(oddelovac + Fore.GREEN + f"\nCongratulations, the player {stav['na tahu']} WON!\n" + Style.RESET_ALL + oddelovac)
+        print(oddelovac + Fore.GREEN + f"\nGratuluji, hráč {stav['na tahu']} VYHRÁL !!\n" + Style.RESET_ALL + oddelovac)
         stav["dohrano"] = "ano"
 
 def dej_novou_hru(stav, stav_novy):
@@ -127,20 +125,19 @@ def dej_novou_hru(stav, stav_novy):
     :return: slovník obsahující nový stav hry
     :rtype: dict
     """
-    oddelovac = "=" * 44
     pripustne_volby = ["y", "n"]
     if stav["dohrano"] == "ne":
-        nova_hra = input(oddelovac + Fore.YELLOW + "\nIt is a DRAW !!\n" + Style.RESET_ALL + oddelovac + "\nShall we play again? (y/n): ").lower()
+        nova_hra = input(oddelovac + Fore.YELLOW + "\nJe to PLICHTA !!\n" + Style.RESET_ALL + oddelovac + "\nZahrajeme si další? (y/n): ").lower()
     elif stav["dohrano"] == "ano":
-        nova_hra = input("Shall we play again? (y/n): ").lower()
+        nova_hra = input("Zahrajeme si další? (y/n): ").lower()
     while nova_hra not in pripustne_volby:
-        nova_hra = input(Fore.RED + "Wrong input. Give me Yes or No." + Style.RESET_ALL + "\nShall we play again? (y/n): ").lower()
+        nova_hra = input(Fore.RED + "Špatný vstup. Pouze Ano nebo Ne." + Style.RESET_ALL + "\nZahrajeme si další? (y/n): ").lower()
     if nova_hra == "y":
-        print(Fore.BLUE + "\nLet's play a new one !\n" + Style.RESET_ALL)
+        print(Fore.BLUE + "\nZahrajme si další !\n" + Style.RESET_ALL)
         sleep(2)
         return stav_novy
     else:
-        print("\nSee you next time...")
+        print("\nVidíme se jindy...")
         sleep(2)
         exit()
 
