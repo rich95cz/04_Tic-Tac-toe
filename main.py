@@ -145,7 +145,7 @@ def dej_novou_hru(stav, stav_novy):
 def main():
     """
     Hlavní funkce. Definuje výchozí stav hry, inicializuje coloramu, obsahuje hlavní herní smyčku.
-    Je tu víceméně jen proto, aby skript neobsahoval globální proměnné.
+    Je tu víceméně jen proto, aby stav hry nebyl globální proměnnou.
 
     Bez vstupu či výstupu.
     """
